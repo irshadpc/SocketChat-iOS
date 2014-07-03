@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4C4FA36E1964C392007771EE /* ChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4FA36D1964C392007771EE /* ChatTableViewController.m */; };
 		4C4FA3741964CCB5007771EE /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4FA3731964CCB5007771EE /* ChatTableViewCell.m */; };
-		4C4FA3771964D411007771EE /* ChatLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4FA3761964D411007771EE /* ChatLogic.m */; };
 		4C4FA37A1964D607007771EE /* ChatLogicMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4FA3791964D607007771EE /* ChatLogicMessage.m */; };
 		4C83B7771964A91D000DF3C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C83B7761964A91D000DF3C7 /* Foundation.framework */; };
 		4C83B7791964A91D000DF3C7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C83B7781964A91D000DF3C7 /* CoreGraphics.framework */; };
@@ -23,6 +22,7 @@
 		4C83B7921964A91D000DF3C7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C83B77A1964A91D000DF3C7 /* UIKit.framework */; };
 		4C83B79A1964A91E000DF3C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C83B7981964A91E000DF3C7 /* InfoPlist.strings */; };
 		4C83B79C1964A91E000DF3C7 /* SocketChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83B79B1964A91E000DF3C7 /* SocketChatTests.m */; };
+		4CBA76B31964F23B000281F3 /* ChatLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBA76B21964F23B000281F3 /* ChatLogic.m */; };
 		C72F0682BFFC4F0BBCBF41D7 /* libPods-SocketChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE0276E1F1F14DDAA750695A /* libPods-SocketChat.a */; };
 /* End PBXBuildFile section */
 
@@ -42,8 +42,6 @@
 		4C4FA3701964C469007771EE /* UIColorFromHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColorFromHex.h; sourceTree = "<group>"; };
 		4C4FA3721964CCB5007771EE /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
 		4C4FA3731964CCB5007771EE /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
-		4C4FA3751964D411007771EE /* ChatLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatLogic.h; path = ../ChatLogic.h; sourceTree = "<group>"; };
-		4C4FA3761964D411007771EE /* ChatLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatLogic.m; path = ../ChatLogic.m; sourceTree = "<group>"; };
 		4C4FA3781964D607007771EE /* ChatLogicMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatLogicMessage.h; sourceTree = "<group>"; };
 		4C4FA3791964D607007771EE /* ChatLogicMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatLogicMessage.m; sourceTree = "<group>"; };
 		4C83B7731964A91D000DF3C7 /* SocketChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocketChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +60,8 @@
 		4C83B7971964A91E000DF3C7 /* SocketChatTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SocketChatTests-Info.plist"; sourceTree = "<group>"; };
 		4C83B7991964A91E000DF3C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C83B79B1964A91E000DF3C7 /* SocketChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SocketChatTests.m; sourceTree = "<group>"; };
+		4CBA76B11964F23B000281F3 /* ChatLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatLogic.h; sourceTree = "<group>"; };
+		4CBA76B21964F23B000281F3 /* ChatLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatLogic.m; sourceTree = "<group>"; };
 		8E67A24660C44279BEC8E2A5 /* Pods-SocketChat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocketChat.xcconfig"; path = "Pods/Pods-SocketChat.xcconfig"; sourceTree = "<group>"; };
 		AE0276E1F1F14DDAA750695A /* libPods-SocketChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocketChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -98,8 +98,8 @@
 				4C4FA36D1964C392007771EE /* ChatTableViewController.m */,
 				4C4FA3721964CCB5007771EE /* ChatTableViewCell.h */,
 				4C4FA3731964CCB5007771EE /* ChatTableViewCell.m */,
-				4C4FA3751964D411007771EE /* ChatLogic.h */,
-				4C4FA3761964D411007771EE /* ChatLogic.m */,
+				4CBA76B11964F23B000281F3 /* ChatLogic.h */,
+				4CBA76B21964F23B000281F3 /* ChatLogic.m */,
 				4C4FA3781964D607007771EE /* ChatLogicMessage.h */,
 				4C4FA3791964D607007771EE /* ChatLogicMessage.m */,
 			);
@@ -318,11 +318,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CBA76B31964F23B000281F3 /* ChatLogic.m in Sources */,
 				4C4FA36E1964C392007771EE /* ChatTableViewController.m in Sources */,
 				4C4FA3741964CCB5007771EE /* ChatTableViewCell.m in Sources */,
 				4C4FA37A1964D607007771EE /* ChatLogicMessage.m in Sources */,
 				4C83B7871964A91D000DF3C7 /* AppDelegate.m in Sources */,
-				4C4FA3771964D411007771EE /* ChatLogic.m in Sources */,
 				4C83B7831964A91D000DF3C7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
