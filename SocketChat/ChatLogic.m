@@ -29,15 +29,18 @@
 
 @implementation ChatLogic
 
-- (id)init {
+- (ChatLogic *)initWithDelegate:(NSObject<ChatLogicDelegate> *)delegate {
     if (self = [super init]) {
+        
+        // Set delegate
+        self.delegate = delegate;
         
         // Initialize messageArray
         self.messageArray = [[NSMutableArray alloc] init];
         
         // Create SocketIO instance and connect
         self.socketIO = [[SocketIO alloc] initWithDelegate:self];
-        [self connectAfterDelay:SOCKET_CONN_DELAY];
+        [self connectToSocket];
         
         // Register for lifecycle notifications
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -47,11 +50,8 @@
     return self;
 }
 
-- (id)initWithDelegate:(NSObject<ChatLogicDelegate> *)delegate {
-    if (self = [self init]) {
-        self.delegate = delegate;
-    }
-    return self;
+- (ChatLogic *)init {
+    return [self initWithDelegate:nil];
 }
 
 #pragma mark - Socket / Networking

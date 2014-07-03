@@ -13,7 +13,7 @@
 
 @interface ChatLogic : NSObject
 
-- (id)initWithDelegate:(id<ChatLogicDelegate>)delegate;
+- (ChatLogic *)initWithDelegate:(id<ChatLogicDelegate>)delegate;
 
 - (void)sendMessage:(ChatLogicMessage *)message;
 
