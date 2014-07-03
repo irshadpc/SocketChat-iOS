@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4C4FA36E1964C392007771EE /* ChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4FA36D1964C392007771EE /* ChatTableViewController.m */; };
 		4C4FA3741964CCB5007771EE /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4FA3731964CCB5007771EE /* ChatTableViewCell.m */; };
+		4C4FA3771964D411007771EE /* ChatLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4FA3761964D411007771EE /* ChatLogic.m */; };
+		4C4FA37A1964D607007771EE /* ChatLogicMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4FA3791964D607007771EE /* ChatLogicMessage.m */; };
 		4C83B7771964A91D000DF3C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C83B7761964A91D000DF3C7 /* Foundation.framework */; };
 		4C83B7791964A91D000DF3C7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C83B7781964A91D000DF3C7 /* CoreGraphics.framework */; };
 		4C83B77B1964A91D000DF3C7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C83B77A1964A91D000DF3C7 /* UIKit.framework */; };
@@ -40,6 +42,10 @@
 		4C4FA3701964C469007771EE /* UIColorFromHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColorFromHex.h; sourceTree = "<group>"; };
 		4C4FA3721964CCB5007771EE /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
 		4C4FA3731964CCB5007771EE /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
+		4C4FA3751964D411007771EE /* ChatLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatLogic.h; path = ../ChatLogic.h; sourceTree = "<group>"; };
+		4C4FA3761964D411007771EE /* ChatLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatLogic.m; path = ../ChatLogic.m; sourceTree = "<group>"; };
+		4C4FA3781964D607007771EE /* ChatLogicMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatLogicMessage.h; sourceTree = "<group>"; };
+		4C4FA3791964D607007771EE /* ChatLogicMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatLogicMessage.m; sourceTree = "<group>"; };
 		4C83B7731964A91D000DF3C7 /* SocketChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocketChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C83B7761964A91D000DF3C7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4C83B7781964A91D000DF3C7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -92,6 +98,10 @@
 				4C4FA36D1964C392007771EE /* ChatTableViewController.m */,
 				4C4FA3721964CCB5007771EE /* ChatTableViewCell.h */,
 				4C4FA3731964CCB5007771EE /* ChatTableViewCell.m */,
+				4C4FA3751964D411007771EE /* ChatLogic.h */,
+				4C4FA3761964D411007771EE /* ChatLogic.m */,
+				4C4FA3781964D607007771EE /* ChatLogicMessage.h */,
+				4C4FA3791964D607007771EE /* ChatLogicMessage.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -310,7 +320,9 @@
 			files = (
 				4C4FA36E1964C392007771EE /* ChatTableViewController.m in Sources */,
 				4C4FA3741964CCB5007771EE /* ChatTableViewCell.m in Sources */,
+				4C4FA37A1964D607007771EE /* ChatLogicMessage.m in Sources */,
 				4C83B7871964A91D000DF3C7 /* AppDelegate.m in Sources */,
+				4C4FA3771964D411007771EE /* ChatLogic.m in Sources */,
 				4C83B7831964A91D000DF3C7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
