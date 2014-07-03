@@ -14,7 +14,6 @@
 #define CHAT_KEY_USER       @"username"
 #define CHAT_KEY_MESSAGE    @"message"
 
-#define CHAT_USER           @"iOS"
 #define CHAT_DISCONN_STRING @"Going down..."
 
 #import "ChatLogic.h"
@@ -106,7 +105,10 @@
 #pragma mark - Chat
 
 - (void)sendMessage:(ChatLogicMessage *)chatLogicMessage {
-    [self.socketIO sendEvent:CHAT_KEY_SEND withData:@{CHAT_KEY_USER: chatLogicMessage.username, CHAT_KEY_MESSAGE: chatLogicMessage.message}];
+    NSMutableDictionary *dataDictionary = [[NSMutableDictionary alloc] init];
+    if (chatLogicMessage.username) [dataDictionary addEntriesFromDictionary:@{CHAT_KEY_USER: chatLogicMessage.username}];
+    if (chatLogicMessage.message) [dataDictionary addEntriesFromDictionary:@{CHAT_KEY_MESSAGE: chatLogicMessage.message}];
+    [self.socketIO sendEvent:CHAT_KEY_SEND withData:dataDictionary];
 }
 
 - (void)socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
@@ -135,7 +137,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSLog(@"backgroundTimeRemaining: %.2fs", [[UIApplication sharedApplication] backgroundTimeRemaining]);
         
-        [self sendMessage:[ChatLogicMessage chatLogicMessageWithUsername:CHAT_USER andMessage:CHAT_DISCONN_STRING]];
+        [self sendMessage:[ChatLogicMessage chatLogicMessageWithUsername:nil andMessage:CHAT_DISCONN_STRING]];
         [self.socketIO disconnect];
         
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];

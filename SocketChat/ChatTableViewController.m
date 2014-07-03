@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Manuel Menzella. All rights reserved.
 //
 
+#define CHAT_USER           @"iOS"
+
 #define VIEW_BKGN_COLOR     0x3582CA
 #define VIEW_USER_COLOR     0x55FFFF
 #define VIEW_MESSAGE_COLOR  0xDDDDDD
