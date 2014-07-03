@@ -15,6 +15,9 @@
 
 - (ChatLogic *)initWithDelegate:(id<ChatLogicDelegate>)delegate;
 
+- (void)connectToChat;
+- (void)disconnectFromChat;
+
 - (void)sendMessage:(ChatLogicMessage *)message;
 
 @property (nonatomic, strong) NSMutableArray *messageArray;

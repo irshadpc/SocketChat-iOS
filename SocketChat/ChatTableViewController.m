@@ -7,10 +7,12 @@
 //
 
 #define CHAT_USER           @"iOS"
+#define CHAT_EXIT_STRING    @"Going down..."
 
 #define VIEW_BKGN_COLOR     0x3582CA
 #define VIEW_USER_COLOR     0x55FFFF
 #define VIEW_MESSAGE_COLOR  0xDDDDDD
+
 
 #import "ChatTableViewController.h"
 #import "ChatTableViewCell.h"
@@ -36,6 +38,10 @@
     
     // Configure tableView
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    // Register for lifecycle notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
 #pragma mark - ChatLogic Delegate Methods
@@ -107,6 +113,32 @@
     [attrString addAttribute:NSForegroundColorAttributeName value:UIColorFromHex(VIEW_MESSAGE_COLOR) range:NSMakeRange(usernameLength, attrString.length - usernameLength)];
     
     return attrString;
+}
+
+#pragma mark - Application Lifecycle
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [self.chatLogic connectToChat];
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    __block UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [self.chatLogic disconnectFromChat];
+        
+        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+        backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"backgroundTimeRemaining: %.2fs", [[UIApplication sharedApplication] backgroundTimeRemaining]);
+        
+        [self.chatLogic sendMessage:[ChatLogicMessage chatLogicMessageWithUsername:CHAT_USER andMessage:CHAT_EXIT_STRING]];
+        [self.chatLogic disconnectFromChat];
+        
+        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
+        backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    });
 }
 
 @end

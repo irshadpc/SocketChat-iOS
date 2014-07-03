@@ -14,14 +14,13 @@
 #define CHAT_KEY_USER       @"username"
 #define CHAT_KEY_MESSAGE    @"message"
 
-#define CHAT_DISCONN_STRING @"Going down..."
-
 #import "ChatLogic.h"
 #import "SocketIO.h"
 #import "SocketIOPacket.h"
 
 @interface ChatLogic () <SocketIODelegate>
 
+@property (nonatomic) BOOL shouldReconnectAutomatically;
 @property (nonatomic, strong) SocketIO *socketIO;
 
 @end
@@ -41,9 +40,8 @@
         self.socketIO = [[SocketIO alloc] initWithDelegate:self];
         [self connectToSocket];
         
-        // Register for lifecycle notifications
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        // Configure automatic reconnection
+        self.shouldReconnectAutomatically = YES;
         
     }
     return self;
@@ -51,6 +49,18 @@
 
 - (ChatLogic *)init {
     return [self initWithDelegate:nil];
+}
+
+#pragma mark - ChatLogic Connection Interface
+
+- (void)connectToChat {
+    self.shouldReconnectAutomatically = YES;
+    [self connectToSocket];
+}
+
+- (void)disconnectFromChat {
+    self.shouldReconnectAutomatically = NO;
+    [self disconnectFromSocket];
 }
 
 #pragma mark - Socket / Networking
@@ -63,12 +73,24 @@
     }
 }
 
-- (void)connectAfterDelay:(float)delay {
+- (void)connectToSocketAfterDelay:(float)delay {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         if (!self.socketIO.isConnected && !self.socketIO.isConnecting) {
             [self connectToSocket];
         }
     });
+}
+
+- (void)disconnectFromSocket {
+    [self.socketIO disconnect];
+}
+
+- (void)handleSocketDisconnectionWithError:(NSError *)error {
+    if (self.shouldReconnectAutomatically) [self connectToSocketAfterDelay:SOCKET_CONN_DELAY];
+    
+    if ( [self.delegate respondsToSelector:@selector(chatLogicDidDisconnect:withError:)] ) {
+        [self.delegate chatLogicDidDisconnect:self withError:error];
+    }
 }
 
 #pragma mark - SocketIO Delegate Methods
@@ -82,23 +104,13 @@
 
 - (void)socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error
 {
-    [self connectAfterDelay:SOCKET_CONN_DELAY];
-    
-    if ( [self.delegate respondsToSelector:@selector(chatLogicDidDisconnect:withError:)] ) {
-        [self.delegate chatLogicDidDisconnect:self withError:error];
-    }
-    
+    [self handleSocketDisconnectionWithError:error];
     NSLog(@"Socket.IO Disconnected. Error: %@", error.description);
 }
 
 - (void)socketIO:(SocketIO *)socket onError:(NSError *)error
 {
-    [self connectAfterDelay:SOCKET_CONN_DELAY];
-    
-    if ( [self.delegate respondsToSelector:@selector(chatLogicDidDisconnect:withError:)] ) {
-        [self.delegate chatLogicDidDisconnect:self withError:error];
-    }
-    
+    [self handleSocketDisconnectionWithError:error];
     NSLog(@"Socket.IO Error. Error: %@", error.description);
 }
 
@@ -123,32 +135,5 @@
         [self.delegate chatLogic:self didReceiveMessage:chatLogicMessage];
     }
 }
-
-#pragma mark - Application Lifecycle
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    __block UIBackgroundTaskIdentifier backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [self.socketIO disconnect];
-        
-        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
-        backgroundTaskIdentifier = UIBackgroundTaskInvalid;
-    }];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSLog(@"backgroundTimeRemaining: %.2fs", [[UIApplication sharedApplication] backgroundTimeRemaining]);
-        
-        [self sendMessage:[ChatLogicMessage chatLogicMessageWithUsername:nil andMessage:CHAT_DISCONN_STRING]];
-        [self.socketIO disconnect];
-        
-        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskIdentifier];
-        backgroundTaskIdentifier = UIBackgroundTaskInvalid;
-    });
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    [self connectAfterDelay:SOCKET_CONN_DELAY];
-}
-
 
 @end
